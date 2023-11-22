@@ -1,24 +1,50 @@
 import logo from './logo.svg';
 import './App.css';
+import LandingPage from './components/LandingPage';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { Container} from 'react-bootstrap';
+import SignUp from './components/SignUp';
+import NavBar from './components/NavBar';
+import Dashboard from './components/DashBoard';
+import Login from './components/Login';
+import Logout from './components/Logout';
 
 function App() {
+
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [username, setUsername] = useState('');
+
+  const handleLogin = (username) => {
+    setIsAuthenticated(true);
+    setUsername(username)
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    setUsername('');
+    localStorage.removeItem('jwtToken');
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <NavBar isAuthenticated={isAuthenticated} username={username} handleLogout={handleLogout} />
+      <Container>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/signup" element={<SignUp handleLogin={handleLogin} />} />
+          <Route path="/login" element={<Login handleLogin={handleLogin} />} />
+          <Route path="/logout" element={<Logout onLogout={handleLogout} />} />
+
+          {isAuthenticated && (
+            <>
+              <Route path="/dashboard" element={<Dashboard />} />
+            </>  
+          )}
+        </Routes>
+      </Container>
+
+    </Router>
   );
 }
 

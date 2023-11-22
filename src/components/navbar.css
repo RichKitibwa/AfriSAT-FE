@@ -1,0 +1,29 @@
+.navbar {
+    background-color: #343a40;
+}
+
+.navbar-brand.brand-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 35px;
+    color: #000;
+}
+
+.nav-button {
+    color: #000;
+    border-color: #dfdfe0;
+    background: #fff;
+}
+
+.user-dropdown {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-dropdown::after {
+    display: none;
+}
