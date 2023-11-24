@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 import { Form, Button, Card, Container, Row, Col, Image, } from 'react-bootstrap';
+import { USER_ROLE } from '../utils/Constants';
 
 const Login = ({ handleLogin }) => {
     const [username, setUsername] = useState('');
@@ -18,13 +19,21 @@ const Login = ({ handleLogin }) => {
           password
         });
 
+        console.log(response.data)
+
         const token = response.data.token;
+        const role = response.data.role;
+
         localStorage.setItem('jwtToken', token);
-        console.log(response.data.token);
-  
+        console.log(response.data.role)
+
         handleLogin(response.data.username)
 
-        navigate('/dashboard'); 
+        if (role === USER_ROLE.ADMIN) {
+            navigate('/admin/dashboard')
+        } else {
+            navigate('/dashboard'); 
+        }
 
       } catch (error) {
         console.error(error);
@@ -50,6 +59,7 @@ const Login = ({ handleLogin }) => {
                                         value={username} 
                                         onChange={(e) => setUsername(e.target.value)} 
                                         required 
+                                        className="full-width"
                                     />
                                 </Form.Group>
 
@@ -61,6 +71,7 @@ const Login = ({ handleLogin }) => {
                                         value={password} 
                                         onChange={(e) => setPassword(e.target.value)} 
                                         required 
+                                        className="full-width"
                                     />
                                 </Form.Group>
 

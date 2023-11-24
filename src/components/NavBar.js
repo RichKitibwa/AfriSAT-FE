@@ -9,6 +9,9 @@ const NavBar = ({ isAuthenticated, username, handleLogout }) => {
     const isTransparent = location.pathname === '/signup' || location.pathname === '/login';
     const userInitial = isAuthenticated && typeof username === 'string' ? username.charAt(0).toUpperCase() : '';
 
+    const showSignup = location.pathname !== '/signup';
+    const showLogin = location.pathname !== '/login';
+
     return (
         <Navbar 
             expand="lg" 
@@ -27,12 +30,16 @@ const NavBar = ({ isAuthenticated, username, handleLogout }) => {
                 <Nav className="ms-auto me-4">
                     {!isAuthenticated ? (
                         <>
-                            <Link to="/signup">
-                                <Button variant="dark" className="nav-button me-4">Sign Up</Button>
-                            </Link>
-                            <Link to="/login">
-                                <Button variant="dark" className="nav-button me-4">Login</Button>
-                            </Link>
+                            {showSignup && (
+                                <Link to="/signup">
+                                    <Button variant="dark" className="nav-button me-4">Sign Up</Button>
+                                </Link>
+                            )}
+                           {showLogin && (
+                                <Link to="/login">
+                                    <Button variant="dark" className="nav-button me-4">Login</Button>
+                                </Link>
+                           )}  
                         </>
                     ) : (
                         <Dropdown>

@@ -27,3 +27,8 @@
 .user-dropdown::after {
     display: none;
 }
+
+.navbar .brand-logo:hover {
+    color: #000; 
+}
+

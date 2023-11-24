@@ -1,5 +1,4 @@
 import logo from './logo.svg';
-import './App.css';
 import LandingPage from './components/LandingPage';
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
@@ -9,6 +8,9 @@ import NavBar from './components/NavBar';
 import Dashboard from './components/DashBoard';
 import Login from './components/Login';
 import Logout from './components/Logout';
+import AdminDashboard from './components/AdminDashboard';
+import './App.css';
+import Footer from './components/footer';
 
 function App() {
 
@@ -29,7 +31,7 @@ function App() {
   return (
     <Router>
       <NavBar isAuthenticated={isAuthenticated} username={username} handleLogout={handleLogout} />
-      <Container>
+      <div className="main-container">
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/signup" element={<SignUp handleLogin={handleLogin} />} />
@@ -39,11 +41,12 @@ function App() {
           {isAuthenticated && (
             <>
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
             </>  
           )}
         </Routes>
-      </Container>
-
+      </div>
+      <Footer />
     </Router>
   );
 }

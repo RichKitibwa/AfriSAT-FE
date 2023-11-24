@@ -7,7 +7,7 @@ import 'react-bootstrap-typeahead/css/Typeahead.css';
 import Select from 'react-select';
 import countryList from 'react-select-country-list';
 
-const SignUp = () => {
+const SignUp = ({ handleLogin }) => {
 
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
@@ -16,12 +16,14 @@ const SignUp = () => {
     const [password, setPassword] = useState('');
     const [userId, setUserId] = useState('');
     const [countries, setCountries] = useState([]);
-
+    
     useEffect(() => {
         setCountries(countryList().getData());
     }, []);
 
     const navigate = useNavigate();
+
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -37,10 +39,16 @@ const SignUp = () => {
   
         setUserId(response.data.userId);
 
+        handleLogin(response.data.username)
+
         navigate('/dashboard'); 
 
       } catch (error) {
-        console.error(error);
+        if (error.response && error.response.data) {
+            setErrorMessage(error.response.data);
+        } else {
+            setErrorMessage('An error occurred during signup.');
+        }
       }
     };
 
@@ -55,6 +63,13 @@ const SignUp = () => {
                     <Card style={{ width: '30rem', margin: 'auto', marginTop: '2rem' }}>
                         <Card.Body>
                             <Form onSubmit={handleSubmit}>
+                                {errorMessage && (
+                                    <Card className="error-card">
+                                         <Card.Body>
+                                             {errorMessage}
+                                         </Card.Body>
+                                     </Card>
+                                )}
                                 <Form.Group className="mb-3" controlId="formBasicUsername">
                                     <Form.Label>Username</Form.Label>
                                     <Form.Control 
@@ -63,6 +78,7 @@ const SignUp = () => {
                                         value={username} 
                                         onChange={(e) => setUsername(e.target.value)} 
                                         required 
+                                        className="full-width"
                                     />
                                 </Form.Group>
 
@@ -74,6 +90,7 @@ const SignUp = () => {
                                         value={email} 
                                         onChange={(e) => setEmail(e.target.value)} 
                                         required 
+                                        className="full-width"
                                     />
                                 </Form.Group>
 
@@ -81,8 +98,8 @@ const SignUp = () => {
                                     <Form.Label>Country</Form.Label>
                                     <Select 
                                         options={countries}
-                                        value={countries.find(country => country.value === country)}
-                                        onChange={(country) => setCountry(country.value)}
+                                        value={countries.find(country => country.label === country)}
+                                        onChange={(country) => setCountry(country.label)}
                                     />
                                 </Form.Group>
 
@@ -94,6 +111,7 @@ const SignUp = () => {
                                         value={phoneNumber} 
                                         onChange={(e) => setPhoneNumber(e.target.value)} 
                                         required 
+                                        className="full-width"
                                     />
                                 </Form.Group>
 
@@ -105,6 +123,7 @@ const SignUp = () => {
                                         value={password} 
                                         onChange={(e) => setPassword(e.target.value)} 
                                         required 
+                                        className="full-width"
                                     />
                                 </Form.Group>
 

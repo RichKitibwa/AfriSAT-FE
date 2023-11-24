@@ -3,6 +3,7 @@ import {Typography } from '@mui/material';
 import NavBar from './NavBar';
 import { Container, Row, Col, Image, Card } from 'react-bootstrap';
 import './LandingPage.css';
+import '../App.css';
 
 const LandingPage = () => {
   const isLoggedIn = false;
@@ -29,18 +30,6 @@ const LandingPage = () => {
                 </Col>
                 <Col md={6} >
                     <Image src="/watching_tv.jpg" alt="watching_tv" className="card-image"/>
-                </Col>
-            </Row>
-
-            
-            <Row className="my-2">
-                <Col>
-                    <Card>
-                        <Card.Body>
-                            <Card.Title>Contact Us</Card.Title>
-                            <Card.Text></Card.Text>
-                        </Card.Body>
-                    </Card>
                 </Col>
             </Row>
         </div>   
