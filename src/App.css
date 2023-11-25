@@ -13,6 +13,10 @@
   }
 }
 
+body {
+  overflow-x: hidden; 
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -35,10 +39,6 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-body .container {
-  width: 100%;
 }
 
 .client-dashboard {
