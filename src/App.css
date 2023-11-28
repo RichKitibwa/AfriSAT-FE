@@ -75,6 +75,7 @@ body {
 .main-container {
   width: 100%;
   min-height: calc(100vh - 60px);
+  background-color: #f8f9fa;
 }
 
 .admin-dashboard {
@@ -122,6 +123,20 @@ body {
 
 }
 
+.stat-card, .large-stat-card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: none;
+}
+
+.large-stat-card {
+  margin-top: 20px;
+}
+
+.admin-dashboard-container {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
 .full-width {
   max-width: 100%;
 }
@@ -145,4 +160,39 @@ body {
   background-color: red;
   color: white;
   margin-top: 10px;
+}
+
+/*view all codes table*/
+.table {
+  color: #ffffff; 
+  border-collapse: collapse;
+}
+
+.table thead th {
+  background-color: #343a40;
+  color: #ffffff;
+  border-left: none;
+  border-right: none;
+}
+
+.table tbody tr:nth-of-type(even) {
+  background-color: #272b30;
+}
+
+.table tbody tr:nth-of-type(odd) {
+  background-color: #32383e;
+}
+
+.table tbody tr:hover {
+  background-color: #1d2124; 
+}
+
+.table td,
+.table th {
+  border-color: #454d55;
+  border: none;
+}
+
+.all-codes {
+  padding-top: 90px;
 }

@@ -11,6 +11,7 @@ import Logout from './components/Logout';
 import AdminDashboard from './components/AdminDashboard';
 import './App.css';
 import Footer from './components/footer';
+import AllCodes from './components/ViewAllCodes';
 
 function App() {
 
@@ -42,6 +43,8 @@ function App() {
             <>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              <Route path="/admin/dashboard/all-codes" element={<AllCodes />} />
+
             </>  
           )}
         </Routes>
