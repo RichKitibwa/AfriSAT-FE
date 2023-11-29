@@ -13,9 +13,9 @@ const AdminDashboard = () => {
     }
 
     return (
-        <div className="admin-dashboard">
+        <div className="dashboard">
              <Row className="admin-dashboard-container">
-                <Col md={3} lg={2} className="admin-sidebar">
+                <Col md={3} lg={2} className="sidebar">
                     <AdminSidebar />
                 </Col>    
                 <Col md={9} lg={10} className="admin-main-content">   

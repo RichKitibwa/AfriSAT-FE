@@ -29,7 +29,8 @@ const SignUp = ({ handleLogin }) => {
       e.preventDefault();
       
       try {
-        const response = await axios.post('/api/auth/signup', {
+        const apiUrl = `${process.env.REACT_APP_API_BASE_URL}/api/auth/signup`;
+        const response = await axios.post(apiUrl, {
           username,
           email,
           phoneNumber,

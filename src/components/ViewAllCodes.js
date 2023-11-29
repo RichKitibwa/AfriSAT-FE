@@ -11,8 +11,9 @@ const AllCodes = () => {
     useEffect(() => {
         const fetchCodes = async () => {
             try {
+                const apiAllCodesUrl = `${process.env.REACT_APP_API_BASE_URL}/api/activation-codes/all-codes`;
                 const token = localStorage.getItem('jwtToken');
-                const response = await axios.get('/api/activation-codes/all-codes', {
+                const response = await axios.get(apiAllCodesUrl, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`,

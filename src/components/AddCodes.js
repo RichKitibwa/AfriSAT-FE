@@ -24,8 +24,9 @@ const AddCodes = () => {
         e.preventDefault();
 
         try {
+            const apiAddCodeUrl = `${process.env.REACT_APP_API_BASE_URL}/api/activation-codes/add-code`;
             const token = localStorage.getItem('jwtToken');
-            const response = await axios.post('/api/activation-codes/add-code', formData,{
+            const response = await axios.post(apiAddCodeUrl, formData,{
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
@@ -54,7 +55,7 @@ const AddCodes = () => {
     }
 
     return (
-        <div className="admin-dashboard">
+        <div className="dashboard">
             <Row className="admin-dashboard-container">
                 <Col md={3} lg={2} className="admin-sidebar">
                         <AdminSidebar />

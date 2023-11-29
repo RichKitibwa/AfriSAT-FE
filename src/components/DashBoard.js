@@ -1,78 +1,56 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Form, Button, Card, Nav } from 'react-bootstrap';
+import { Row, Col, Form, Button, Card, Nav } from 'react-bootstrap';
 import '../App.css';
+import ClientSideBar from './ClientSideBar';
 
 const Dashboard = () => {
-    const [decoderNumber, setDecoderNumber] = useState('');
     const [subscriptionMonths, setSubscriptionMonths] = useState('');
     const [subscriptionStatus, setSubscriptionStatus] = useState({ subscribed: false, daysLeft: 0 });
 
-    const renderSubscriptionForm = () => (
-        <Card>
-            <Card.Body>
-                <h5>Subscribe to Service</h5>
-                <Form>
-                    <Form.Group className="mb-3" controlId="formDecoderNumber">
-                        <Form.Label>Decoder Number</Form.Label>
-                        <Form.Control 
-                            type="text" 
-                            placeholder="Enter decoder number" 
-                            value={decoderNumber} 
-                            onChange={(e) => setDecoderNumber(e.target.value)} 
-                            className="full-width"
-                        />
-                    </Form.Group>
-
-                    <Form.Group className="mb-3" controlId="formSubscriptionMonths">
-                        <Form.Label>Number of Months</Form.Label>
-                        <Form.Control 
-                            type="number" 
-                            placeholder="Enter number of months" 
-                            value={subscriptionMonths} 
-                            onChange={(e) => setSubscriptionMonths(e.target.value)} 
-                            min="1"
-                            max="12"
-                            className="full-width"
-                        />
-                    </Form.Group>
-
-                    <Button variant="primary" type="submit" className="w-100">
-                        Subscribe
-                    </Button>
-                </Form>
-            </Card.Body>
-        </Card>
-    );
+    const packages = [
+        { duration: '1 Month', description: 'Ideal for short-term entertainment.' },
+        { duration: '2 Months', description: 'More savings for a longer period.' },
+        { duration: '3 Months', description: 'Perfect for seasonal entertainment.' },
+        { duration: '6 Months', description: 'Best value for half a year of fun.' }
+    ];
 
     const renderSubscriptionStatus = () => (
-        <Card className="mb-3">
+        <Card className="mb-3 subscription-status">
             <Card.Body>
-                {subscriptionStatus.subscribed
-                    ? `Subscription Active - ${subscriptionStatus.daysLeft} days remaining`
-                    : 'No subscriptions yet'}
+                <Card.Title>Welcome</Card.Title>
+                <Card.Text>
+                    {subscriptionStatus.subscribed
+                        ? `Subscription Active - ${subscriptionStatus.daysLeft} days remaining`
+                        : 'No subscriptions yet'}
+                </Card.Text>
             </Card.Body>
         </Card>
     );
 
     return (
-        <div className="client-dashboard">
+        <div className="dashboard">
             <Row>
-                <Col md={2} className="sidebar">
-                    <Nav className="flex-column sidebar-nav">
-                        <Nav.Link onClick={() => {}} className="client-sidebar-link">Add Decoder</Nav.Link>
-                        <Nav.Link onClick={() => {}} className="client-sidebar-link">All Decoders</Nav.Link>
-                    </Nav>
+                <Col md={3} className="sidebar">
+                    < ClientSideBar />
                 </Col>
-                <Col md={8}>
+                <Col md={9} className="client-dashboard-main">
                     <Row>
-                        <Col md={6}>
+                        <Col md={12}>
                             {renderSubscriptionStatus()}
                         </Col>    
                     </Row>
                     <Row>
-                        <Col md={6}>
-                            {renderSubscriptionForm()}
-                        </Col>
+                        {packages.map((pkg, index) => (
+                            <Col key={index} md={4} className="mb-4">
+                                <Card className="package-card">
+                                    <Card.Body>
+                                        <Card.Title>{pkg.duration}</Card.Title>
+                                        <Card.Text>{pkg.description}</Card.Text>
+                                        <Button variant="primary">Select</Button>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        ))}
                     </Row>
                 </Col>
             </Row>    

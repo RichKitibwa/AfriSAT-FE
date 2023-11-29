@@ -41,26 +41,15 @@ body {
   }
 }
 
-.client-dashboard {
+.dashboard {
   padding-top: 90px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .sidebar {
   padding: 20px;
   background-color: #f8f9fa;
-}
-
-.client-sidebar-link {
-  padding: 10px;
-  margin: 5px 0;
-  border-radius: 10px;
-  color: black;
-  text-decoration: none;
-}
-
-.client-sidebar-link:hover {
-  background-color: #e9ecef;
-  color: black;
 }
 
 .sidebar-nav .nav-link {
@@ -78,11 +67,7 @@ body {
   background-color: #f8f9fa;
 }
 
-.admin-dashboard {
-  padding-top: 90px;
-}
-
-.admin-sidebar {
+.sidebar {
   background-color: #f8f9fa;
   padding: 20px;
 }
@@ -95,7 +80,7 @@ body {
   margin-bottom: 20px;
 }
 
-.admin-sidebar-link {
+.sidebar-link {
   padding: 10px;
   margin: 5px 0;
   border-radius: 10px;
@@ -103,12 +88,12 @@ body {
   text-decoration: none;
 }
 
-.admin-sidebar .nav-link {
+.sidebar .nav-link {
   color: black;
   text-decoration: none;
 }
 
-.admin-sidebar-link:hover {
+.sidebar-link:hover {
   background-color: #e9ecef;
   color: black;
 }
@@ -132,7 +117,7 @@ body {
   margin-top: 20px;
 }
 
-.admin-dashboard-container {
+.dashboard-container {
   padding-left: 30px;
   padding-right: 30px;
 }
@@ -195,4 +180,27 @@ body {
 
 .all-codes {
   padding-top: 90px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* client dashboard*/
+.client-dashboard-main {
+  padding-left: 20px;
+}
+
+.subscription-status,
+.package-card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: none;
+  border-radius: 30px;
+}
+
+.package-card {
+  transition: transform 0.3s ease;
+}
+
+.package-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }

@@ -13,6 +13,7 @@ import './App.css';
 import Footer from './components/footer';
 import AllCodes from './components/ViewAllCodes';
 import AddCodes from './components/AddCodes';
+import AddDecorder from './components/AddDecorder';
 
 function App() {
 
@@ -46,6 +47,7 @@ function App() {
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
               <Route path="/admin/dashboard/all-codes" element={<AllCodes />} />
               <Route path="/admin/dashboard/add-code" element={<AddCodes />} />
+              <Route path="/dashboard/add-decorder" element={<AddDecorder />} />
             </>  
           )}
         </Routes>
