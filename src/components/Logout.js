@@ -9,7 +9,8 @@ const Logout = ({ onLogout }) => {
 
   const handleLogout = async () => {
     try {
-      const response = await axios.post('/api/auth/logout');
+      const apiLogoutUrl = `${process.env.REACT_APP_API_BASE_URL}/api/auth/logout`;
+      const response = await axios.post(apiLogoutUrl);
 
       onLogout();
       navigate('/');
