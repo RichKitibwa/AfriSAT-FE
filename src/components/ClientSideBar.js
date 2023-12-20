@@ -3,19 +3,19 @@ import { Link } from 'react-router-dom';
 import { Nav } from 'react-bootstrap';
 
 
-const ClientSideBar = () => {
+const ClientSideBar = ({ onLinkClick }) => {
     return (
         <Nav defaultActiveKey="/home" className="flex-column sidebar-content">
-            <Link to="/dashboard" className="sidebar-link">
+            <Link to="/dashboard" onClick={onLinkClick} className="sidebar-link">
                 Dashboard
             </Link>
-            <Link to="/dashboard/add-decorder" className="sidebar-link">
-                Add Decorder
+            <Link to="/dashboard/add-decorder" onClick={onLinkClick} className="sidebar-link">
+                Add Decoder
             </Link>
-            <Link to="" className="sidebar-link">
-                All Decorders
+            <Link to="/my-decoders" onClick={onLinkClick} className="sidebar-link">
+                My Decoders
             </Link>
-            <Link to="" className="sidebar-link">
+            <Link to="" onClick={onLinkClick} className="sidebar-link">
                 My Account
             </Link>
         </Nav>

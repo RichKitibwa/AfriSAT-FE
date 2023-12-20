@@ -57,7 +57,7 @@ const AddCodes = () => {
     return (
         <div className="dashboard">
             <Row className="admin-dashboard-container">
-                <Col md={3} lg={2} className="admin-sidebar">
+                <Col md={3} lg={2} className="d-none d-lg-block sidebar">
                         <AdminSidebar />
                 </Col>  
                 <Col md={9} lg={10} className="admin-main-content">   

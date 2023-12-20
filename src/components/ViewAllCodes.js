@@ -31,7 +31,7 @@ const AllCodes = () => {
     return (
         <div className="all-codes">
             <Row>
-                <Col md={3} lg={2}>
+                <Col md={3} lg={2} className="d-none d-lg-block sidebar">
                     <AdminSidebar />
                 </Col>
                 <Col md={9} lg={10}>

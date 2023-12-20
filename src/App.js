@@ -14,6 +14,8 @@ import Footer from './components/footer';
 import AllCodes from './components/ViewAllCodes';
 import AddCodes from './components/AddCodes';
 import AddDecorder from './components/AddDecorder';
+import Subscribe from './components/Subscribe';
+import MyDecoders from './components/MyDecoders';
 
 function App() {
 
@@ -32,28 +34,31 @@ function App() {
   }
 
   return (
-    <Router>
-      <NavBar isAuthenticated={isAuthenticated} username={username} handleLogout={handleLogout} />
-      <div className="main-container">
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/signup" element={<SignUp handleLogin={handleLogin} />} />
-          <Route path="/login" element={<Login handleLogin={handleLogin} />} />
-          <Route path="/logout" element={<Logout onLogout={handleLogout} />} />
+      <Router>
+        <NavBar isAuthenticated={isAuthenticated} username={username} handleLogout={handleLogout} />
+        <div className="main-container">
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/signup" element={<SignUp handleLogin={handleLogin} />} />
+            <Route path="/login" element={<Login handleLogin={handleLogin} />} />
+            <Route path="/logout" element={<Logout onLogout={handleLogout} />} />
 
-          {isAuthenticated && (
-            <>
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/admin/dashboard" element={<AdminDashboard />} />
-              <Route path="/admin/dashboard/all-codes" element={<AllCodes />} />
-              <Route path="/admin/dashboard/add-code" element={<AddCodes />} />
-              <Route path="/dashboard/add-decorder" element={<AddDecorder />} />
-            </>  
-          )}
-        </Routes>
-      </div>
-      <Footer />
-    </Router>
+            {isAuthenticated && (
+              <>
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/admin/dashboard" element={<AdminDashboard />} />
+                <Route path="/admin/dashboard/all-codes" element={<AllCodes />} />
+                <Route path="/admin/dashboard/add-code" element={<AddCodes />} />
+                <Route path="/dashboard/add-decorder" element={<AddDecorder />} />
+                <Route path="/subscribe/:duration" element={<Subscribe />} />
+                <Route path="/my-decoders" element={<MyDecoders />} />
+
+              </>  
+            )}
+          </Routes>
+        </div>
+        <Footer />
+      </Router>
   );
 }
 

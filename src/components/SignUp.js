@@ -23,11 +23,14 @@ const SignUp = ({ handleLogin }) => {
 
     const navigate = useNavigate();
 
-    const [errorMessage, setErrorMessage] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [message, setMessage] = useState('');
+    const [messageType, setMessageType] = useState('');
 
     const handleSubmit = async (e) => {
       e.preventDefault();
       
+      setIsLoading(true);
       try {
         const apiUrl = `${process.env.REACT_APP_API_BASE_URL}/api/auth/signup`;
         const response = await axios.post(apiUrl, {
@@ -44,12 +47,31 @@ const SignUp = ({ handleLogin }) => {
 
         navigate('/dashboard'); 
 
+        const token = response.data.token;
+        const role = response.data.role;
+
+        localStorage.setItem('jwtToken', token);
+        localStorage.setItem('role', role);
+
       } catch (error) {
         if (error.response && error.response.data) {
-            setErrorMessage(error.response.data);
+            setMessage(error.response.data);
+            setMessageType("error");
+            setTimeout(() => {
+                setMessage('');
+                setMessageType('');
+            }, 5000);
         } else {
-            setErrorMessage('An error occurred during signup.');
+            setMessage('An error occurred during signup.');
+            setMessageType("error");
+
+            setTimeout(() => {
+                setMessage('');
+                setMessageType('');
+            }, 5000);
         }
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -64,12 +86,10 @@ const SignUp = ({ handleLogin }) => {
                     <Card style={{ width: '30rem', margin: 'auto', marginTop: '2rem' }}>
                         <Card.Body>
                             <Form onSubmit={handleSubmit}>
-                                {errorMessage && (
-                                    <Card className="error-card">
-                                         <Card.Body>
-                                             {errorMessage}
-                                         </Card.Body>
-                                     </Card>
+                                {message && (
+                                    <Card className={`mb-3 text-white ${messageType === 'error' ? 'bg-danger' : 'bg-success'}`}>
+                                        <Card.Body>{message}</Card.Body>
+                                    </Card>
                                 )}
                                 <Form.Group className="mb-3" controlId="formBasicUsername">
                                     <Form.Label>Username</Form.Label>
@@ -128,8 +148,8 @@ const SignUp = ({ handleLogin }) => {
                                     />
                                 </Form.Group>
 
-                                <Button variant="primary" type="submit" className="w-100">
-                                    Sign up
+                                <Button variant="primary" type="submit" className="w-100" disabled={isLoading}>
+                                    {isLoading ? 'Signing up...' : 'Sign up'}
                                 </Button>
                             </Form>
                         </Card.Body>

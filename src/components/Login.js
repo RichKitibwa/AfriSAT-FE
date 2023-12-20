@@ -10,9 +10,14 @@ const Login = ({ handleLogin }) => {
 
     const navigate = useNavigate();
 
+    const [isLoading, setIsLoading] = useState(false);
+    const [message, setMessage] = useState('');
+    const [messageType, setMessageType] = useState('');
+
     const handleSubmit = async (e) => {
       e.preventDefault();
-      
+      setIsLoading(true);
+
       try {
         const apiLoginUrl = `${process.env.REACT_APP_API_BASE_URL}/api/auth/login`;
         const response = await axios.post(apiLoginUrl, {
@@ -20,12 +25,12 @@ const Login = ({ handleLogin }) => {
           password
         });
 
-        console.log(response.data)
-
         const token = response.data.token;
         const role = response.data.role;
 
         localStorage.setItem('jwtToken', token);
+        localStorage.setItem('role', role);
+
         console.log(response.data.role)
 
         handleLogin(response.data.username)
@@ -38,6 +43,15 @@ const Login = ({ handleLogin }) => {
 
       } catch (error) {
         console.error(error);
+        setMessage(error.response?.data?.message || "An error occurred.");
+        setMessageType("error");
+
+        setTimeout(() => {
+            setMessage('');
+            setMessageType('');
+        }, 5000);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -52,6 +66,11 @@ const Login = ({ handleLogin }) => {
                     <Card style={{ width: '30rem', margin: 'auto', marginTop: '2rem' }}>
                         <Card.Body>
                             <Form onSubmit={handleSubmit}>
+                                {message && (
+                                    <Card className={`mb-3 text-white ${messageType === 'error' ? 'bg-danger' : 'bg-success'}`}>
+                                        <Card.Body>{message}</Card.Body>
+                                    </Card>
+                                )}
                                 <Form.Group className="mb-3" controlId="formBasicUsername">
                                     <Form.Label>Username</Form.Label>
                                     <Form.Control 
@@ -76,8 +95,8 @@ const Login = ({ handleLogin }) => {
                                     />
                                 </Form.Group>
 
-                                <Button variant="primary" type="submit" className="w-100">
-                                    log in
+                                <Button variant="primary" type="submit" className="w-100" disabled={isLoading}>
+                                    {isLoading ? 'Logging in...' : 'Log in'}
                                 </Button>
                             </Form>
                         </Card.Body>

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Row, Col, Form, Button, Card, Nav } from 'react-bootstrap';
 import '../App.css';
 import ClientSideBar from './ClientSideBar';
+import { useNavigate } from 'react-router';
+
 
 const Dashboard = () => {
     const [subscriptionMonths, setSubscriptionMonths] = useState('');
@@ -26,11 +28,16 @@ const Dashboard = () => {
             </Card.Body>
         </Card>
     );
+    const navigate = useNavigate();
+
+    const handleCardClick = (pkg) => {
+        navigate(`/subscribe/${pkg.duration}`);
+    };
 
     return (
         <div className="dashboard">
             <Row>
-                <Col md={3} className="sidebar">
+                <Col md={3} className="d-none d-lg-block sidebar">
                     < ClientSideBar />
                 </Col>
                 <Col md={9} className="client-dashboard-main">
@@ -42,13 +49,12 @@ const Dashboard = () => {
                     <Row>
                         {packages.map((pkg, index) => (
                             <Col key={index} md={4} className="mb-4">
-                                <Card className="package-card">
-                                    <Card.Body>
-                                        <Card.Title>{pkg.duration}</Card.Title>
-                                        <Card.Text>{pkg.description}</Card.Text>
-                                        <Button variant="primary">Select</Button>
-                                    </Card.Body>
-                                </Card>
+                                    <Card className="package-card" onClick={() => handleCardClick(pkg)}>
+                                        <Card.Body>
+                                            <Card.Title>{pkg.duration}</Card.Title>
+                                            <Card.Text>{pkg.description}</Card.Text>
+                                        </Card.Body>
+                                    </Card>
                             </Col>
                         ))}
                     </Row>

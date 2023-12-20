@@ -1,16 +1,56 @@
 import React, { useState } from 'react';
-import { Row, Col, Form, Button, Card, Nav } from 'react-bootstrap';
+import axios from 'axios';
+import { Row, Col, Form, Button, Card } from 'react-bootstrap';
 import '../App.css';
 import ClientSideBar from './ClientSideBar';
 
 const AddDecorder = () => {
     const [decoderNumber, setDecoderNumber] = useState('');
-    const [subscriptionMonths, setSubscriptionMonths] = useState('');
+    const [message, setMessage] = useState('');
+    const [messageType, setMessageType] = useState('');
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const apiAddDecoderUrl = `${process.env.REACT_APP_API_BASE_URL}/api/decoders/add-decoder`;
+            const token = localStorage.getItem('jwtToken');
+            const response = await axios.post(apiAddDecoderUrl, {
+                decoderNumber
+            }, {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              });
+
+              if (response.status === 201) {
+                
+                setMessage("Decoder added successfully.")
+                setMessageType("success");
+
+                setDecoderNumber('');
+
+                setTimeout(() => {
+                    setMessage('');
+                    setMessageType('');
+                }, 5000);
+            }
+
+        } catch (error) {
+            setMessage(error.response?.data?.message || "An error occurred.");
+            setMessageType("error");
+
+            setTimeout(() => {
+                setMessage('');
+                setMessageType('');
+            }, 5000);
+        }
+    };
 
     return (
         <div className="dashboard">
             <Row className="admin-dashboard-container">
-                <Col md={3} lg={2} className="admin-sidebar">
+                <Col md={3} lg={2} className="d-none d-lg-block sidebar">
                         <ClientSideBar />
                 </Col>  
                 <Col md={9} lg={10} className="admin-main-content">   
@@ -18,8 +58,13 @@ const AddDecorder = () => {
                         <Col md={5} className="mb-5">
                             <Card>
                                 <Card.Body>
-                                    <h5>Add Decorder</h5>
-                                    <Form>
+                                    <Card.Title>Add Decorder</Card.Title>
+                                    {message && (
+                                        <Card className={`mb-3 text-white ${messageType === 'error' ? 'bg-danger' : 'bg-success'}`}>
+                                            <Card.Body>{message}</Card.Body>
+                                        </Card>
+                                    )}
+                                    <Form onSubmit={handleSubmit}>
                                         <Form.Group className="mb-3" controlId="formDecoderNumber">
                                             <Form.Label>Decoder Number</Form.Label>
                                             <Form.Control 
@@ -31,21 +76,8 @@ const AddDecorder = () => {
                                             />
                                         </Form.Group>
 
-                                        <Form.Group className="mb-3" controlId="formSubscriptionMonths">
-                                            <Form.Label>Number of Months</Form.Label>
-                                            <Form.Control 
-                                                type="number" 
-                                                placeholder="Enter number of months" 
-                                                value={subscriptionMonths} 
-                                                onChange={(e) => setSubscriptionMonths(e.target.value)} 
-                                                min="1"
-                                                max="12"
-                                                className="full-width"
-                                            />
-                                        </Form.Group>
-
                                         <Button variant="primary" type="submit" className="w-100">
-                                            Subscribe
+                                            Add Decorder
                                         </Button>
                                     </Form>
                                 </Card.Body>
