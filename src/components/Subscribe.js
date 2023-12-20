@@ -44,39 +44,33 @@ const Subscribe = () => {
                         <ClientSideBar />
                 </Col>  
                 <Col md={9} lg={10} className="admin-main-content">   
+                    {decoders.length === 0 ? (
+                        <div className="no-decoders">
+                            <h4>No decoders added yet.</h4>
+                            <Button onClick={() => navigate('/dashboard/add-decorder')}>Add Decoder</Button>
+                        </div>
+                    ) : (    
                     <Row>
                         <Col md={5} className="mb-5">
                             <Card>
                                 <Card.Body>
                                     <Card.Title>Subscribe for: {duration}</Card.Title>
                                     <Form onSubmit={handleSubmit}>
-                                        {decoders.length > 0 ? (
-                                            <Form.Group className="mb-3" controlId="formDecoderSelect">
-                                                <Form.Label>Decoder Number</Form.Label>
-                                                <Form.Select 
-                                                    aria-label="Select decoder"
-                                                    value={decoderNumber} 
-                                                    onChange={(e) => setDecoderNumber(e.target.value)}
-                                                    className="full-width"
-                                                >
-                                                    <option value="">Select a decoder</option>
-                                                    {decoders.map((decoder, index) => (
-                                                        <option key={index} value={decoder.decoderNumber}>{decoder.decoderNumber}</option>
-                                                    ))}
-                                                </Form.Select>
-                                            </Form.Group>
-                                            ) : (
-                                            <Form.Group className="mb-3" controlId="formDecoderNumber">
-                                                <Form.Label>Decoder Number</Form.Label>
-                                                <Form.Control
-                                                    type="text"
-                                                    placeholder="Enter decoder number"
-                                                    value={decoderNumber}
-                                                    onChange={(e) => setDecoderNumber(e.target.value)}
-                                                    className="full-width"
-                                                />
-                                            </Form.Group>
-                                        )}
+                                        <Form.Group className="mb-3" controlId="formDecoderSelect">
+                                            <Form.Label>Decoder Number</Form.Label>
+                                            <Form.Select 
+                                                aria-label="Select decoder"
+                                                value={decoderNumber} 
+                                                onChange={(e) => setDecoderNumber(e.target.value)}
+                                                className="full-width"
+                                            >
+                                                <option value="">Select a decoder</option>
+                                                {decoders.map((decoder, index) => (
+                                                    <option key={index} value={decoder.decoderNumber}>{decoder.decoderNumber}</option>
+                                                ))}
+                                            </Form.Select>
+                                        </Form.Group>
+                                            
                                         <Button variant="primary" type="submit" className="w-100">
                                             Subscribe
                                         </Button>
@@ -85,6 +79,7 @@ const Subscribe = () => {
                             </Card>
                         </Col> 
                     </Row>  
+                    )}
                 </Col>  
             </Row>  
         </div>                

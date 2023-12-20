@@ -15,7 +15,7 @@ const ClientSideBar = ({ onLinkClick }) => {
             <Link to="/my-decoders" onClick={onLinkClick} className="sidebar-link">
                 My Decoders
             </Link>
-            <Link to="" onClick={onLinkClick} className="sidebar-link">
+            <Link  onClick={onLinkClick} className="sidebar-link">
                 My Account
             </Link>
         </Nav>
