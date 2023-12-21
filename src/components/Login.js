@@ -3,10 +3,13 @@ import axios from 'axios';
 import { useNavigate } from 'react-router';
 import { Form, Button, Card, Container, Row, Col, Image, } from 'react-bootstrap';
 import { USER_ROLE } from '../utils/Constants';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye as EyeIcon, faEyeSlash as EyeSlashIcon } from '@fortawesome/free-solid-svg-icons'
 
 const Login = ({ handleLogin }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [passwordVisible, setPasswordVisible] = useState(false);
 
     const navigate = useNavigate();
 
@@ -85,14 +88,19 @@ const Login = ({ handleLogin }) => {
 
                                 <Form.Group className="mb-3" controlId="formBasicPassword">
                                     <Form.Label>Password</Form.Label>
-                                    <Form.Control 
-                                        type="password" 
-                                        placeholder="Password" 
-                                        value={password} 
-                                        onChange={(e) => setPassword(e.target.value)} 
-                                        required 
-                                        className="full-width"
-                                    />
+                                    <div className="password-field">
+                                        <Form.Control 
+                                            type={passwordVisible ? "text" : "password"} 
+                                            placeholder="Password" 
+                                            value={password} 
+                                            onChange={(e) => setPassword(e.target.value)} 
+                                            required 
+                                            className="full-width"
+                                        />
+                                        <span className="password-toggle-icon" onClick={() => setPasswordVisible(!passwordVisible)}>
+                                            <FontAwesomeIcon icon={passwordVisible ? EyeIcon : EyeSlashIcon} />
+                                        </span>
+                                    </div>    
                                 </Form.Group>
 
                                 <Button variant="primary" type="submit" className="w-100" disabled={isLoading}>
