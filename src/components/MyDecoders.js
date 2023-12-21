@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Card, Button, Row, Col } from 'react-bootstrap';
+import { Card, Button, Row, Col, Spinner } from 'react-bootstrap';
 import ClientSideBar from './ClientSideBar';
 
 const MyDecoders = () => {
     const [decoders, setDecoders] = useState([]);
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchDecoders = async () => {
+            setIsLoading(true);
             try {
                 const apiAllDecodersUrl = `${process.env.REACT_APP_API_BASE_URL}/api/decoders/all-decoders`;
                 const token = localStorage.getItem('jwtToken');
@@ -21,6 +23,8 @@ const MyDecoders = () => {
                 setDecoders(response.data);
             } catch (error) {
                 console.error('Error fetching decoders:', error);
+            } finally {
+                setIsLoading(false);
             }
         };
 
@@ -43,7 +47,13 @@ const MyDecoders = () => {
                     < ClientSideBar />
                 </Col>        
                 <Col md={9} className="client-dashboard-main"> 
-                    {decoders.length === 0 ? (
+                    {isLoading ? (
+                        <div className="loading-animation">
+                            <Spinner animation="border" role="status">
+                                <span className="visually-hidden">Loading Decoders...</span>
+                            </Spinner>
+                        </div>
+                    ) : decoders.length === 0 ? (
                             <div className="no-decoders">
                                 <h2>No decoders found.</h2>
                                 <Button onClick={() => navigate('/dashboard/add-decorder')}>Add Decoder</Button>
@@ -69,7 +79,7 @@ const MyDecoders = () => {
                                 </Col>
                             </Row>    
                         ))
-                    )}    
+                    )}  
                 </Col>    
             </Row>
         </div>

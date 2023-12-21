@@ -12,6 +12,12 @@ const Logout = ({ onLogout }) => {
       const apiLogoutUrl = `${process.env.REACT_APP_API_BASE_URL}/api/auth/logout`;
       const response = await axios.post(apiLogoutUrl);
 
+      const token = response.data.token;
+      const role = response.data.role;
+
+      localStorage.removeItem('jwtToken', token);
+      localStorage.removeItem('role', role);
+
       onLogout();
       navigate('/');
     } catch (error) {

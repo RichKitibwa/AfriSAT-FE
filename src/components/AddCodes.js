@@ -15,6 +15,7 @@ const AddCodes = () => {
 
     const [message, setMessage] = useState('');
     const [messageType, setMessageType] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -22,6 +23,7 @@ const AddCodes = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
 
         try {
             const apiAddCodeUrl = `${process.env.REACT_APP_API_BASE_URL}/api/activation-codes/add-code`;
@@ -51,6 +53,8 @@ const AddCodes = () => {
                 setMessage('');
                 setMessageType('');
             }, 5000);
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -96,8 +100,8 @@ const AddCodes = () => {
                                             <Form.Control type="number" placeholder="cost" className="full-width" value={formData.cost} onChange={handleChange} min="1" />
                                         </Form.Group>
                                         <Form.Group className="mb-3">
-                                            <Button variant="primary" type="submit" className="w-100">
-                                                Submit
+                                            <Button variant="primary" type="submit" className="w-100" disabled={isLoading}>
+                                                {isLoading ? 'Adding Code...' : 'Add Code'}
                                             </Button>
                                         </Form.Group>
                                     </Form>

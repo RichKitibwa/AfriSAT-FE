@@ -8,9 +8,11 @@ const AddDecorder = () => {
     const [decoderNumber, setDecoderNumber] = useState('');
     const [message, setMessage] = useState('');
     const [messageType, setMessageType] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
 
         try {
             const apiAddDecoderUrl = `${process.env.REACT_APP_API_BASE_URL}/api/decoders/add-decoder`;
@@ -44,6 +46,8 @@ const AddDecorder = () => {
                 setMessage('');
                 setMessageType('');
             }, 5000);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -76,8 +80,8 @@ const AddDecorder = () => {
                                             />
                                         </Form.Group>
 
-                                        <Button variant="primary" type="submit" className="w-100">
-                                            Add Decorder
+                                        <Button variant="primary" type="submit" className="w-100" disabled={isLoading}>
+                                            {isLoading ? 'Adding Decoder...' : 'Add Decoder'}
                                         </Button>
                                     </Form>
                                 </Card.Body>
