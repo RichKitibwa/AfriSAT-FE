@@ -53,11 +53,11 @@ const AddDecorder = () => {
 
     return (
         <div className="dashboard">
-            <Row className="admin-dashboard-container">
+            <Row className="">
                 <Col md={3} lg={2} className="d-none d-lg-block sidebar">
                         <ClientSideBar />
                 </Col>  
-                <Col md={9} lg={10} className="admin-main-content">   
+                <Col md={9} lg={10} className="client-dashboard-main">   
                     <Row>
                         <Col md={5} className="mb-5">
                             <Card>

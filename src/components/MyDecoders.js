@@ -43,10 +43,10 @@ const MyDecoders = () => {
     return (
         <div className="dashboard">
             <Row>
-                <Col md={3} className="d-none d-lg-block sidebar">
+                <Col md={3} lg={2} className="d-none d-lg-block sidebar">
                     < ClientSideBar />
                 </Col>        
-                <Col md={9} className="client-dashboard-main"> 
+                <Col md={9} lg={10} className="client-dashboard-main"> 
                     {isLoading ? (
                         <div className="loading-animation">
                             <Spinner animation="border" role="status">
