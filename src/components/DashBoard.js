@@ -10,10 +10,10 @@ const Dashboard = () => {
     const [subscriptionStatus, setSubscriptionStatus] = useState({ subscribed: false, daysLeft: 0 });
 
     const packages = [
-        { duration: '1 Month', description: 'Ideal for short-term entertainment.' },
-        { duration: '2 Months', description: 'More savings for a longer period.' },
-        { duration: '3 Months', description: 'Perfect for seasonal entertainment.' },
-        { duration: '6 Months', description: 'Best value for half a year of fun.' }
+        { duration: '1 Month', price: '$2', description: 'Ideal for short-term entertainment.' },
+        { duration: '2 Months', price: '$3.50', description: 'More savings for a longer period.' },
+        { duration: '3 Months', price: '$6.50', description: 'Perfect for seasonal entertainment.' },
+        { duration: '6 Months', price: '$11.00', description: 'Best value for half a year of fun.' }
     ];
 
     const renderSubscriptionStatus = () => (
@@ -37,10 +37,10 @@ const Dashboard = () => {
     return (
         <div className="dashboard">
             <Row>
-                <Col md={3} className="d-none d-lg-block sidebar">
+                <Col md={3} lg={2} className="d-none d-lg-block sidebar">
                     < ClientSideBar />
                 </Col>
-                <Col md={9} className="client-dashboard-main">
+                <Col md={9} lg={10} className="client-dashboard-main">
                     <Row>
                         <Col md={12}>
                             {renderSubscriptionStatus()}
@@ -50,9 +50,13 @@ const Dashboard = () => {
                         {packages.map((pkg, index) => (
                             <Col key={index} md={4} className="mb-4">
                                     <Card className="package-card" onClick={() => handleCardClick(pkg)}>
-                                        <Card.Body>
+                                        <Card.Header className="text-center">
                                             <Card.Title>{pkg.duration}</Card.Title>
+                                            <h3>{pkg.price}/mo</h3>
+                                        </Card.Header>
+                                        <Card.Body>
                                             <Card.Text>{pkg.description}</Card.Text>
+                                            <Button variant="primary" block>Subscribe</Button>
                                         </Card.Body>
                                     </Card>
                             </Col>

@@ -261,7 +261,7 @@ body {
 
 /* client dashboard*/
 .client-dashboard-main {
-  padding-left: 20px;
+  padding: 20px;
 }
 
 .subscription-status,
@@ -281,6 +281,54 @@ body {
   transform: translateY(-5px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
+
+.package-card .card-header {
+  background-color: #f7f8fa;
+  border-bottom: 1px solid #e6e6e6;
+  padding: 20px 0;
+}
+
+.package-card .card-title {
+  color: #7f8082;
+}
+
+.package-card h3 {
+  color: #303233;
+  font-weight: 700;
+  margin: 32px 0 16px;
+  font-size: 2.25 rem;
+  line-height: 1;
+}
+
+.package-card .card-body {
+  padding: 20px;
+}
+
+.package-card .card-text {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  text-align: center;
+
+}
+
+.package-card .btn-primary {
+  background-color: #007bff;
+  border: none;
+  border-radius: 13px;
+  width: 100%;
+  font-size: 1.5rem;
+  margin: 24px 0;
+  height: 65px;
+  font-weight: 500;
+}
+
+.package-card .btn-primary:hover {
+  background-color: #0056b3;
+}
+
 /*password field icon*/
 .password-field {
   position: relative;
